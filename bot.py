@@ -8,7 +8,7 @@ from aiogram import F
 from aiogram.fsm.storage.memory import MemoryStorage
 from aiogram.fsm.context import FSMContext
 from aiogram.fsm.state import State, StatesGroup
-from datetime import datetime
+from datetime import datetime, timedelta
 from aiogram.filters import CommandStart
 import os
 
@@ -316,7 +316,8 @@ async def show_history(message: types.Message):
             current_time = entry["timestamp"]
             username = user_mapping.get(entry["user_id"], "Користувач")
             state_display = "прокинувся" if entry["state"] == 'awake' else "заснув"
-            formatted_time = current_time.strftime("%d.%m %H:%M")
+            adjusted_time = current_time + timedelta(hours=3)
+            formatted_time = adjusted_time.strftime("%d.%m %H:%M")
 
             # Вираховуємо тривалість до наступного запису
             if i + 1 < len(formatted_history):
