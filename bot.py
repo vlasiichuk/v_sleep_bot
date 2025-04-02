@@ -340,12 +340,8 @@ async def show_history(message: types.Message):
 
 # Початок роботи з ботом
 async def main():
-     from keep_alive import start_web_app
-    import asyncio
+    await dp.start_polling(bot)
 
-    loop = asyncio.get_event_loop()
-    loop.create_task(start_web_app())
-    executor.start_polling(dp, skip_updates=True)
 
 if __name__ == "__main__":
     import asyncio
