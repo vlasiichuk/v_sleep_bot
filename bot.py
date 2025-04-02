@@ -11,9 +11,6 @@ from aiogram.fsm.state import State, StatesGroup
 from datetime import datetime
 from aiogram.filters import CommandStart
 import os
-from keep_alive import keep_alive
-
-keep_alive()
 
 
 API_TOKEN = os.getenv("API_TOKEN")
