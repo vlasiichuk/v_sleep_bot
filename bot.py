@@ -102,13 +102,13 @@ async def register_user(user_id, bot, message):
 
     if user_exists:
         # Якщо користувач вже існує, виводимо повідомлення
-        logging.info(f"Користувач з ID {user_id} вже зареєстрований.")
+        #logging.info(f"Користувач з ID {user_id} вже зареєстрований.")
         await message.answer("Ви вже зареєстровані в системі.")
     else:
         # Якщо користувач не знайдений, то додаємо його
         cursor.execute("INSERT INTO users (user_id) VALUES (?)", (user_id,))
         conn.commit()
-        logging.info(f"Користувач з ID {user_id} успішно зареєстрований.")
+        #logging.info(f"Користувач з ID {user_id} успішно зареєстрований.")
         await message.answer("Вітаємо! Ви успішно зареєстровані.")
 
     conn.close()
@@ -179,7 +179,7 @@ async def notify_users(bot: Bot, message_text: str, exclude_user_id: int):
                 # Виправлене повідомлення — з іменем ініціатора події
                 await bot.send_message(user_id, f"{initiator_name} {message_text}", reply_markup=markup)
             except Exception as e:
-                logging.error(f"Не вдалося надіслати повідомлення користувачу {user_id}: {e}")
+                #logging.error(f"Не вдалося надіслати повідомлення користувачу {user_id}: {e}")
 
     conn.close()
 
@@ -220,7 +220,7 @@ async def sleeping(message: types.Message):
         else:
             duration_str = f" після {minutes}хв активності"
 
-    logging.info(f"User {user_id} selected 'Заснув' at {timestamp}")
+    #logging.info(f"User {user_id} selected 'Заснув' at {timestamp}")
 
     await notify_users(bot, f"зафіксував, що дитина заснула{duration_str}.", user_id)
     await message.answer(f"Ви зафіксували, що дитина заснула{duration_str}.", reply_markup=create_buttons("sleeping", user_id))
@@ -263,7 +263,7 @@ async def awake(message: types.Message):
         else:
             duration_str = f" після {minutes}хв сну"
 
-    logging.info(f"User {user_id} selected 'Прокинувся' at {timestamp}")
+    #logging.info(f"User {user_id} selected 'Прокинувся' at {timestamp}")
 
     await notify_users(bot, f"зафіксував, що дитина прокинулась{duration_str}.", user_id)
     await message.answer(f"Ви зафіксували, що дитина прокинулась{duration_str}.", reply_markup=create_buttons("awake", user_id))
@@ -331,7 +331,7 @@ async def show_history(message: types.Message):
 
     history_message += f"\nКоманду виконано користувачем з ID: {user_id}"
 
-    logging.info(f"User {user_id} requested history")
+    #logging.info(f"User {user_id} requested history")
 
     await message.answer(history_message, reply_markup=markup, parse_mode="Markdown")
 
