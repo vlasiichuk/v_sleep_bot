@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from aiogram import Bot, Dispatcher, types
 import logging
 import sqlite3
