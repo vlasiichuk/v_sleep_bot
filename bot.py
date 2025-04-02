@@ -167,19 +167,24 @@ async def notify_users(bot: Bot, message_text: str, exclude_user_id: int):
         user_id = user[0]
         if user_id != exclude_user_id:
             try:
-                # Перевірка останнього стану (не обов'язково, але залишимо)
-                cursor.execute("SELECT state FROM sleep_log ORDER BY timestamp DESC LIMIT 1")
+                # Отримуємо останній стан саме цього користувача
+                cursor.execute("""
+                    SELECT state FROM sleep_log 
+                    WHERE user_id = ? 
+                    ORDER BY timestamp DESC LIMIT 1
+                """, (user_id,))
                 last_state = cursor.fetchone()
-
+    
                 if last_state and last_state[0] == "sleeping":
                     markup = create_buttons("sleeping", user_id)
                 else:
                     markup = create_buttons("awake", user_id)
-
-                # Виправлене повідомлення — з іменем ініціатора події
+    
+                # Надсилаємо повідомлення з кнопками
                 await bot.send_message(user_id, f"{initiator_name} {message_text}", reply_markup=markup)
-            # except Exception as e:
-                # logging.error(f"Не вдалося надіслати повідомлення користувачу {user_id}: {e}")
+    
+            except:
+                pass  # Просто ігноруємо помилки
 
     conn.close()
 
