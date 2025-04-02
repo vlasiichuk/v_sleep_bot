@@ -102,13 +102,13 @@ async def register_user(user_id, bot, message):
 
     if user_exists:
         # Якщо користувач вже існує, виводимо повідомлення
-        #logging.info(f"Користувач з ID {user_id} вже зареєстрований.")
+        # logging.info(f"Користувач з ID {user_id} вже зареєстрований.")
         await message.answer("Ви вже зареєстровані в системі.")
     else:
         # Якщо користувач не знайдений, то додаємо його
         cursor.execute("INSERT INTO users (user_id) VALUES (?)", (user_id,))
         conn.commit()
-        #logging.info(f"Користувач з ID {user_id} успішно зареєстрований.")
+        # logging.info(f"Користувач з ID {user_id} успішно зареєстрований.")
         await message.answer("Вітаємо! Ви успішно зареєстровані.")
 
     conn.close()
@@ -178,8 +178,8 @@ async def notify_users(bot: Bot, message_text: str, exclude_user_id: int):
 
                 # Виправлене повідомлення — з іменем ініціатора події
                 await bot.send_message(user_id, f"{initiator_name} {message_text}", reply_markup=markup)
-            except Exception as e:
-                #logging.error(f"Не вдалося надіслати повідомлення користувачу {user_id}: {e}")
+            # except Exception as e:
+                # logging.error(f"Не вдалося надіслати повідомлення користувачу {user_id}: {e}")
 
     conn.close()
 
