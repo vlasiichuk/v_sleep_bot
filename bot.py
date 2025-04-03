@@ -170,9 +170,9 @@ async def notify_users(bot: Bot, message_text: str, exclude_user_id: int):
                 # Отримуємо останній стан саме цього користувача
                 cursor.execute("""
                     SELECT state FROM sleep_log 
-                    WHERE user_id = ? 
+                    
                     ORDER BY timestamp DESC LIMIT 1
-                """, (user_id,))
+                """)
                 last_state = cursor.fetchone()
     
                 if last_state and last_state[0] == "sleeping":
@@ -200,9 +200,9 @@ async def sleeping(message: types.Message):
 
     cursor.execute("""
         SELECT state, timestamp FROM sleep_log 
-        WHERE user_id = ? 
+        
         ORDER BY timestamp DESC LIMIT 1
-    """, (user_id,))
+    """)
     last_entry = cursor.fetchone()
 
     cursor.execute(
@@ -243,9 +243,9 @@ async def awake(message: types.Message):
 
     cursor.execute("""
         SELECT state, timestamp FROM sleep_log 
-        WHERE user_id = ? 
+        
         ORDER BY timestamp DESC LIMIT 1
-    """, (user_id,))
+    """)
     last_entry = cursor.fetchone()
 
     cursor.execute(
