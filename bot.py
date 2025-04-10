@@ -15,7 +15,7 @@ import os
 
 API_TOKEN = os.getenv("API_TOKEN")
 
-logging.basicConfig(level=logging.INFO)
+logging.basicConfig(level=logging.WARNING)
 
 # 1. Створення об'єкта Bot
 bot = Bot(token=API_TOKEN)
